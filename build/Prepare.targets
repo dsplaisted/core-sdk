@@ -4,7 +4,7 @@
   <Import Project="prepare/CheckPrereqs.targets" />
 
   <Target Name="Prepare"
-          DependsOnTargets="Init;DownloadHostAndSharedFxArtifacts;DownloadToolsetArtifacts;RestoreSrcPackages;RestoreToolsPackages;IsolateArtifactsFromDirectoryBuildFiles;CreatePropsForNextStage" />
+          DependsOnTargets="Init;DownloadHostAndSharedFxArtifacts;CopySharedArtifacts;DownloadToolsetArtifacts;RestoreSrcPackages;RestoreToolsPackages;IsolateArtifactsFromDirectoryBuildFiles;CreatePropsForNextStage" />
 
   <Target Name="Init"
           DependsOnTargets="PrintBuildInfo;
@@ -17,6 +17,7 @@
           DependsOnTargets="PrintBuildInfo;
                             CheckPrereqs;
                             DownloadHostAndSharedFxArtifacts;
+                            CopySharedArtifacts;
                             IsolateArtifactsFromDirectoryBuildFiles;
                             CreatePropsForNextStage">
   </Target>
@@ -53,6 +54,12 @@
                                SourceArchive="%(_DownloadAndExtractItem.DownloadFileName)"
                                DestinationDirectory="%(_DownloadAndExtractItem.ExtractDestination)"
                                OverwriteDestination="$(OverwriteExtractionDestination)" />
+  </Target>
+
+  <Target Name="CopySharedArtifacts">
+    <Copy SourceFiles="@(_SharedFxCopyItem)"
+          DestinationFiles="@(_SharedFxCopyItem->'%(DestinationFolder)\%(RecursiveDir)%(Filename)%(Extension)')"
+          />
   </Target>
 
   <Target Name="DownloadToolsetArtifacts">
