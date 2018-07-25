@@ -4,7 +4,8 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <ToolsetRootUrl>$(CoreSetupBlobRootUrl)Toolset/$(ToolsetVersion)/</ToolsetRootUrl>
+    <!-- <ToolsetRootUrl>$(CoreSetupBlobRootUrl)Toolset/$(ToolsetVersion)/</ToolsetRootUrl> -->
+    <ToolsetRootUrl>file://C:\git\toolset\bin\2\win-x64\packages\</ToolsetRootUrl>
     <ToolsetDownloadUrl>$(ToolsetRootUrl)$(ToolsetCompressedFileName)$(CoreSetupBlobAccessTokenParam)</ToolsetDownloadUrl>
     <ToolsetDownloadDirectory>$(IntermediateDirectory)/toolsetDownload/$(ToolsetVersion)/</ToolsetDownloadDirectory>
     <ToolsetArchive>$(ToolsetDownloadDirectory)$(ToolsetCompressedFileName)</ToolsetArchive>

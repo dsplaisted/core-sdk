@@ -40,7 +40,7 @@ namespace Microsoft.DotNet.Tests.EndToEnd
 
                 new RestoreCommand()
                     .WithWorkingDirectory(projectDirectory)
-                    .Execute("/p:SkipInvalidConfigurations=true")
+                    .Execute("/p:SkipInvalidConfigurations=true /bl:restore.binlog")
                     .Should().Pass();
 
                 new BuildCommand()

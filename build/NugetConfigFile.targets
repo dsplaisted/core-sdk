@@ -31,6 +31,7 @@
     <add key="container-tools" value="https://www.myget.org/F/container-tools-for-visual-studio/api/v3/index.json" />
     <add key="api.nuget.org" value="https://api.nuget.org/v3/index.json" />
     <add key="local Private.WPF" value="$(RepoRoot)..\DotNet-Wpf\bin\packages\Debug" />
+    <add key="local toolset" value="$(RepoRoot)..\toolset\bin\2\win-x64\packages" />
         ]]>
       </NugetConfigCLIFeeds>
 
