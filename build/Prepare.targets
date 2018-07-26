@@ -58,7 +58,7 @@
 
   <Target Name="CopySharedArtifacts">
     <Copy SourceFiles="@(_SharedFxCopyItem)"
-          DestinationFiles="@(_SharedFxCopyItem->'%(DestinationFolder)\%(RecursiveDir)%(Filename)%(Extension)')"
+          DestinationFiles="@(_SharedFxCopyItem->'$(SharedFrameworkPublishDirectory)\%(RelativePathToDotnetHome)\%(RecursiveDir)%(Filename)%(Extension)')"
           />
   </Target>
 

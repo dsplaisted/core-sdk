@@ -56,7 +56,8 @@
 
   <ItemGroup>
     <_SharedFxCopyItem Include="$(RepoRoot)..\DotNet-Wpf\bin\shared-win-x64\Microsoft.Private.WPF\$(MicrosoftPrivateWpfPackageVersion)\**\*" 
-                       DestinationFolder="$(SharedFrameworkPublishDirectory)\shared\Microsoft.Private.WPF\$(MicrosoftPrivateWpfPackageVersion)"/>
+                       RelativePathToDotnetHome="shared\Microsoft.Private.WPF\$(MicrosoftPrivateWpfPackageVersion)"
+                       IncludeInSdkLayout="true"/>
     
     <_DownloadAndExtractItem Include="CombinedSharedHostAndFrameworkArchive"
                              Condition="!Exists('$(CombinedSharedHostAndFrameworkArchive)')">

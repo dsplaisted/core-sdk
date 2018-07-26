@@ -43,6 +43,18 @@
         <Name>$(ArtifactNameSdk)</Name>
       </LayoutDefinition>
 
+      <SharedFxLayout Include="@(_SharedFxCopyItem)"
+                      Condition="'%(_SharedFxCopyItem.IncludeInSdkLayout)' == 'true'">
+        <OutputFile>$(SdkLayoutOutputDirectory)\%(RelativePathToDotnetHome)\%(RecursiveDir)%(Filename)%(Extension)</OutputFile>
+      </SharedFxLayout>
+
+      <LayoutDefinition Include="AdditionalSharedFx">
+        <InputFiles>@(SharedFxLayout)</InputFiles>
+        <OutputFiles>@(SharedFxLayout -> '%(OutputFile)')</OutputFiles>
+        <NameWithVersion>$(ArtifactNameWithVersionSdk)</NameWithVersion>
+        <Name>$(ArtifactNameSdk)</Name>
+      </LayoutDefinition>
+
       <LayoutDefinition Include="CombinedHostHostFxrFrameworkSdk">
         <InputFiles>@(CombinedHostHostFxrFrameworkSdkInput)</InputFiles>
         <OutputFiles>@(CombinedHostHostFxrFrameworkSdkRelativeOutputFiles -> '$(CombinedHostHostFxrFrameworkSdkOutputDirectory)/%(Identity)')</OutputFiles>
