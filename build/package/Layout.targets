@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+  </PropertyGroup>
+  
+  <PropertyGroup>
     <CombinedHostHostFxrFrameworkSdkOutputDirectory>$(LayoutDirectory)/$(ArtifactNameCombinedHostHostFxrFrameworkSdk)</CombinedHostHostFxrFrameworkSdkOutputDirectory>
   </PropertyGroup>
 
@@ -39,6 +43,18 @@
       <LayoutDefinition Include="Sdk">
         <InputFiles>@(SdkLayoutInput)</InputFiles>
         <OutputFiles>@(SdkRelativeOutputFiles -> '$(SdkLayoutOutputDirectory)/%(Identity)')</OutputFiles>
+        <NameWithVersion>$(ArtifactNameWithVersionSdk)</NameWithVersion>
+        <Name>$(ArtifactNameSdk)</Name>
+      </LayoutDefinition>
+      
+      <SharedFxLayout Include="$(WinFormsAndWpfSharedFxPublishDirectory)\**\*.*" />
+      <SharedFxLayout Update="@(SharedFxLayout)">
+        <OutputFile>$(SdkLayoutOutputDirectory)\%(RecursiveDir)%(Filename)%(Extension)</OutputFile>
+      </SharedFxLayout>
+
+      <LayoutDefinition Include="AdditionalSharedFx">
+        <InputFiles>@(SharedFxLayout)</InputFiles>
+        <OutputFiles>@(SharedFxLayout -> '%(OutputFile)')</OutputFiles>
         <NameWithVersion>$(ArtifactNameWithVersionSdk)</NameWithVersion>
         <Name>$(ArtifactNameSdk)</Name>
       </LayoutDefinition>
