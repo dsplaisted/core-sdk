@@ -1,0 +1,5 @@
+<Project>
+  <ItemGroup>
+    <BundledNupkg Include="Microsoft.NETCore.App" Version="$(MicrosoftNETCoreAppPackageVersion)" />
+  </ItemGroup>
+</Project>

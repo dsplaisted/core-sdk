@@ -55,6 +55,7 @@ tools\TestAssetsDependencies\TestAssetsDependencies.csproj
          which is what the signing build uses -->
     <Import Project="build/BundledTemplates.props" />
     <Import Project="build/BundledDotnetTools.props" />
+    <Import Project="build/BundledNupkgs.props" />
 
     <Import Project="build/BuildDefaults.props" />
     <Import Project="build/BundledRuntimes.props" />

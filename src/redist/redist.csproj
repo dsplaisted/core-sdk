@@ -20,6 +20,7 @@
                             PublishRuntimes;
                             PublishToolset;
                             PublishTemplates;
+                            PublishFallbackNupkgs;
                             PublishLzmaArchive;
                             CrossgenPublishDir;
                             PublishDotnetTools;
@@ -250,6 +251,24 @@
     <MSBuild
       BuildInParallel="False"
       Projects="@(TemplatesToBundle)">
+    </MSBuild>
+  </Target>
+
+  <Target Name="PublishFallbackNupkgs">
+    <RemoveDir Directories="$(NuGetFallbackFolderOutputDirectory)" />
+
+    <ItemGroup>
+      <NupkgsToBundle Include="$(RepoRoot)/build/BundledNupkgs.proj">
+        <Properties>
+          TemplateFillInPackageName=%(BundledNupkg.Identity);
+          TemplateFillInPackageVersion=%(BundledNupkg.Version);
+        </Properties>
+      </NupkgsToBundle>
+    </ItemGroup>
+    
+    <MSBuild
+      BuildInParallel="False"
+      Projects="@(NupkgsToBundle)">
     </MSBuild>
   </Target>
 
