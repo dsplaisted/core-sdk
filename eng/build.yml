@@ -25,13 +25,13 @@ phases:
       AdditionalBuildParameters: $(_AdditionalBuildParameters)
 
     steps:
-    - script:
-        echo ##vso[task.setvariable variable=TestParameter]-test
-      condition: eq(variables['_AgentOSName'], 'Windows_NT')
-      displayName: Set TestParameter to -test
-    # - script: 'echo ##vso[task.setvariable variable=TestParameter]-test'
+    # - script:
+    #     echo ##vso[task.setvariable variable=TestParameter]-test
     #   condition: eq(variables['_AgentOSName'], 'Windows_NT')
-    #   displayName: Set TestParameter to -test (variation 2)
+    #   displayName: Set TestParameter to -test
+    - script: 'echo ##vso[task.setvariable variable=TestParameter]-test'
+      condition: eq(variables['_AgentOSName'], 'Windows_NT')
+      displayName: Set TestParameter to -test (variation 2)
     - script: echo %TestParameter%
       displayName: Show TestParameter
     - script: echo ##vso[task.setvariable variable=TestParameter]--test
