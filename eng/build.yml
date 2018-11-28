@@ -86,8 +86,7 @@ phases:
         testRunTitle: '$(_AgentOSName)_$(Agent.JobName)'
         platform: '$(BuildPlatform)'
         configuration: '$(_BuildConfig)'
-      condition: and(succeededOrFailed(), ne(variables['PB_SkipTests'], 'true'), ne(variables['RunTests'], 'true'))
-
+      condition: and(succeededOrFailed(), ne(variables['PB_SkipTests'], 'true'), ne(variables['RunTests'], 'false'))
     - task: CopyFiles@2
       displayName: Gather Logs
       inputs:
