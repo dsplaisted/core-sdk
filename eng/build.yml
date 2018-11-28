@@ -25,9 +25,19 @@ phases:
       AdditionalBuildParameters: $(_AdditionalBuildParameters)
 
     steps:
+    - script: echo '##vso[task.setvariable variable=TestParameter]-test'
+      condition: eq(variables['_AgentOSName'], 'Windows_NT')
+    - script: echo '##vso[task.setvariable variable=TestParameter]--test'
+      condition: ne(variables['_AgentOSName'], 'Windows_NT')
+    - script: echo '##vso[task.setvariable variable=RunTests]true'
+    - script: echo '##vso[task.setvariable variable=RunTests]false'
+      condition: startsWith(variables['BuildArchitecture'], 'arm')
+    - script: echo '##vso[task.setvariable variable=TestParameter]'
+      condition: eq(variables['RunTests'], 'false')
     - ${{ if eq(parameters.agentOs, 'Windows_NT') }}:
       - script: build.cmd
-                  -test -pack -publish
+                  $(TestParameter)
+                  -pack -publish
                   -Configuration $(BuildConfig)
                   -Architecture $(BuildArchitecture)
                   $(AdditionalBuildParameters)
@@ -38,7 +48,8 @@ phases:
 
     - ${{ if eq(parameters.agentOs, 'Linux') }}:
       - script: ./build.sh
-                  --test --pack --publish
+                  $(TestParameter)
+                  --pack --publish
                   --noprettyprint
                   --configuration $(BuildConfig)
                   $(DockerParameter)
@@ -52,7 +63,8 @@ phases:
 
     - ${{ if eq(parameters.agentOs, 'Darwin') }}:
       - script: ./build.sh
-                  --test --pack --publish
+                  $(TestParameter)
+                  --pack --publish
                   --noprettyprint
                   --configuration $(BuildConfig)
         displayName: Build
@@ -65,7 +77,7 @@ phases:
         testRunTitle: '$(_AgentOSName)_$(Agent.JobName)'
         platform: '$(BuildPlatform)'
         configuration: '$(_BuildConfig)'
-      condition: and(succeededOrFailed(), ne(variables['PB_SkipTests'], 'true'))
+      condition: and(succeededOrFailed(), ne(variables['PB_SkipTests'], 'true'), ne(variables['RunTests'], 'true'))
 
     - task: CopyFiles@2
       displayName: Gather Logs
