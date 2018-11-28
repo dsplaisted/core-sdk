@@ -25,14 +25,14 @@ phases:
       AdditionalBuildParameters: $(_AdditionalBuildParameters)
 
     steps:
-    - script: echo '##vso[task.setvariable variable=TestParameter]-test'
+    - script: echo ##vso[task.setvariable variable=TestParameter]-test
       condition: eq(variables['_AgentOSName'], 'Windows_NT')
-    - script: echo '##vso[task.setvariable variable=TestParameter]--test'
+    - script: echo ##vso[task.setvariable variable=TestParameter]--test
       condition: ne(variables['_AgentOSName'], 'Windows_NT')
-    - script: echo '##vso[task.setvariable variable=RunTests]true'
-    - script: echo '##vso[task.setvariable variable=RunTests]false'
+    - script: echo ##vso[task.setvariable variable=RunTests]true
+    - script: echo ##vso[task.setvariable variable=RunTests]false
       condition: startsWith(variables['BuildArchitecture'], 'arm')
-    - script: echo '##vso[task.setvariable variable=TestParameter]'
+    - script: echo ##vso[task.setvariable variable=TestParameter]
       condition: eq(variables['RunTests'], 'false')
     - ${{ if eq(parameters.agentOs, 'Windows_NT') }}:
       - script: build.cmd
