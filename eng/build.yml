@@ -38,8 +38,10 @@ phases:
     - script: 'echo ##vso[task.setvariable variable=RunTests]false'
       condition: startsWith(variables['BuildArchitecture'], 'arm')
       displayName: Set RunTests to false (for ARM)
+    - script: 'echo RunTests: $(RunTests)'
+      displayName: Show RunTests
     - script: 'echo ##vso[task.setvariable variable=TestParameter]'
-      condition: eq(variables['RunTests'], 'false')
+      condition: ne(variables['RunTests'], 'true')
       displayName: Set TestParameter to empty
     - script: 'echo TestParameter: $(TestParameter)'
       displayName: Show TestParameter
