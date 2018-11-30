@@ -41,8 +41,11 @@ phases:
     - script: 'echo RunTests: $(RunTests)'
       displayName: Show RunTests
     - script: 'echo ##vso[task.setvariable variable=TestParameter]/p:DummyParam=DummyValue'
-      condition: ne(variables['RunTests'], 'true')
-      displayName: Set TestParameter to dummy value
+      condition: and(ne(variables['RunTests'], 'true'), eq(variables['_AgentOSName'], 'Windows_NT'))
+      displayName: Set TestParameter to dummy value (Windows)
+    - script: 'echo "##vso[task.setvariable variable=TestParameter]/p:DummyParam=DummyValue"'
+      condition: and(ne(variables['RunTests'], 'true'), ne(variables['_AgentOSName'], 'Windows_NT'))
+      displayName: Set TestParameter to dummy value (non-Windows)
     - script: 'echo TestParameter: $(TestParameter)'
       displayName: Show TestParameter
     - ${{ if eq(parameters.agentOs, 'Windows_NT') }}:
