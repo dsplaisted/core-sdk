@@ -25,27 +25,6 @@ phases:
       AdditionalBuildParameters: $(_AdditionalBuildParameters)
 
     steps:
-    # - script: 'echo ##vso[task.setvariable variable=TestParameter]-test'
-    #   condition: eq(variables['_AgentOSName'], 'Windows_NT')
-    #   displayName: Set TestParameter to -test
-    # - script: 'echo "##vso[task.setvariable variable=TestParameter]--test"'
-    #   condition: ne(variables['_AgentOSName'], 'Windows_NT')
-    #   displayName: Set TestParameter to --test
-    # - script: 'echo TestParameter: $(TestParameter)'
-    #   displayName: Show TestParameter
-    # - script: 'echo ##vso[task.setvariable variable=RunTests]true'
-    #   displayName: Set RunTests to true
-    # - script: 'echo ##vso[task.setvariable variable=RunTests]false'
-    #   condition: startsWith(variables['BuildArchitecture'], 'arm')
-    #   displayName: Set RunTests to false (for ARM)
-    # - script: 'echo RunTests: $(RunTests)'
-    #   displayName: Show RunTests
-    # - script: 'echo ##vso[task.setvariable variable=TestParameter]/p:DummyParam=DummyValue'
-    #   condition: and(ne(variables['RunTests'], 'true'), eq(variables['_AgentOSName'], 'Windows_NT'))
-    #   displayName: Set TestParameter to dummy value (Windows)
-    # - script: 'echo "##vso[task.setvariable variable=TestParameter]/p:DummyParam=DummyValue"'
-    #   condition: and(ne(variables['RunTests'], 'true'), ne(variables['_AgentOSName'], 'Windows_NT'))
-    #   displayName: Set TestParameter to dummy value (non-Windows)
     - script: 'eng\setcitestinfo.bat $(BuildArchitecture)'
       condition: eq(variables['_AgentOSName'], 'Windows_NT')
       displayName: Set test info (Windows)
