@@ -258,6 +258,18 @@ stages:
       # This repo doesn't produce any signed packages.
       enableSigningValidation: false
       publishInstallersAndChecksums: true
+      SDLValidationParameters:
+        enable: true
+        params: ' -SourceToolsList @("policheck","credscan")
+        -TsaInstanceURL "https://devdiv.visualstudio.com/"
+        -TsaProjectName "DEVDIV"
+        -TsaNotificationEmail "$(TsaNotificationEmail)"
+        -TsaCodebaseAdmin "$(TsaCodebaseAdmin)"
+        -TsaBugAreaPath "DevDiv\NET Core"
+        -TsaIterationPath "DevDiv"
+        -TsaRepositoryName "core-sdk"
+        -TsaCodebaseName "core-sdk"
+        -TsaPublish $True'
 
 - ${{ if and(ne(variables['System.TeamProject'], 'public'), notin(variables['Build.Reason'], 'PullRequest'), not(contains(variables['Build.SourceBranch'], 'refs/heads/internal/'))) }}:
   - stage: copy_to_latest
